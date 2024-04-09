@@ -20,8 +20,8 @@ use std::{
 
 use bytes::Bytes;
 use headers::{
-    AccessControlAllowOrigin, AccessControlExposeHeaders, CacheControl, ContentLength, ContentType,
-    HeaderMapExt, IfMatch, IfNoneMatch, Pragma,
+    AccessControlAllowHeaders, AccessControlAllowOrigin, AccessControlExposeHeaders, CacheControl,
+    ContentLength, ContentType, HeaderMapExt, IfMatch, IfNoneMatch, Pragma,
 };
 use http::{
     header::ETAG, header::IF_MATCH, header::IF_NONE_MATCH, HeaderMap, Response, StatusCode, Uri,
@@ -47,7 +47,7 @@ const MAX_CONTENT_LENGTH: u64 = 1024 * 100;
 fn prepare_headers(headers: &mut HeaderMap, session: &Session) {
     headers.typed_insert(AccessControlAllowOrigin::ANY);
     headers.typed_insert(AccessControlExposeHeaders::from_iter([ETAG]));
-    headers.typed_insert(AccessControlExposeHeaders::from_iter([
+    headers.typed_insert(AccessControlAllowHeaders::from_iter([
         IF_MATCH,
         IF_NONE_MATCH,
     ]));
